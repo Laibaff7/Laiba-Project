@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="description" content="">
+
+    <title>LunarCalc</title>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/nicepage.css')}}" media="screen">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/LunarCalc.css')}}" media="screen">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Lato:100,100i,300,300i,400,400i,700,700i,900,900i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i">
+    
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="LunarCalc">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+</head>
+
+  <body class="u-body u-xl-mode" data-lang="en" style="background-image: url({{image_url}});">
+    <section class="skrollable skrollable-between u-align-center u-clearfix u-section-1" src="" id="sec-ec8b">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <a href="/" class="return-home-link" style="
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          color: white;
+          font-weight: bold;
+          text-decoration: none;"> 
+          < Return Home
+        </a>
+        <h1 class="u-align-center u-custom-font u-font-pt-sans u-text u-text-1">Lunar Phase Calculator</h1>
+        <p class="u-align-center u-large-text u-text u-text-variant u-text-2">Here you can enter a date and view the lunar phase on that date!</p>
+        <p class="u-align-center u-large-text u-text u-text-variant u-text-3">
+          <form action="/calculate_lunar_phase" method="post">
+            <label for="date" class="u-align-center u-large-text u-text u-text-variant u-text-2" style="font-size: larger;">Enter a date:</label><br>
+            <input type="datetime-local" id="date" name="date" class="u-align-center u-large-text u-text u-text-variant" style="color: black;">
+            <input type="submit" value="Calculate" class="u-border-2 u-border-hover-palette-1-base u-border-white u-btn u-btn-round u-button-style u-none u-radius-50 u-btn-1">
+          </form>
+        </p>
+
+        {% if empty %}
+          <p class="u-align-center u-large-text u-text u-text-variant u-text-3">Please enter all information before clicking calculate!</p>
+        {% endif %}
+
+
+      {% if phase and illumination and date %}
+        <h3 class="u-align-center u-custom-font u-font-pt-sans u-text">Lunar Cycle for {{date}}:</h3>
+        <p class="u-align-center u-large-text u-text u-text-variant u-text-3">Moon Phase: {{phase}}<br>Surface Illumination: {{illumination}}%</p>
+        {% if phase == 'Waxing/Waning Crescent' %}
+            <img src="{{ url_for('static', filename='moonimages/crescent.png') }}" alt="Crescent Image">
+
+        {% elif phase == 'Full Moon' %}
+            <img src="{{ url_for('static', filename='moonimages/fullmoon.png') }}" alt="Full Moon Image">
+
+        {% elif phase == 'New Moon' %}
+            <img src="{{ url_for('static', filename='moonimages/newmoon.png') }}" alt="New Moon Image">      
+
+        {% elif phase == 'Waxing/Waning Gibbous' %}
+            <img src="{{ url_for('static', filename='moonimages/gibbous.png') }}" alt="Gibbous Image">
+
+        {% elif phase == 'First/Last Quarters' %}
+            <img src="{{ url_for('static', filename='moonimages/quarter.png') }}" alt="Quarters Image">
+
+        {% endif %}
+      {% endif %}
+      </div>
+    </section>
+    
+    
+    
+  
+</body></html>
